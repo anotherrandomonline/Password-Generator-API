@@ -7,7 +7,9 @@ function isBool(_) {
 
 app.get("/gen/:length", (req, res) => {
     const length = parseInt(req.params.length)
-    if (length < 6 || length > 1024) {
+    if (!Number(length)) {
+        res.status(400).json({"status": "error", "msg": "Length must be a number"})
+    } else if (length < 6 || length > 1024) {
         res.status(400).json({"status": "error", "msg": "Length must be between 6 and 1024"})
     } else {
         let characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
